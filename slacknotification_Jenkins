@@ -15,15 +15,14 @@ sh "${mavenhome}/bin/mvn package"
 }
 }//try end
 
-catche(e){
+catche(e) {
 currentBuild.result = "FAILURE"
 throw e
 }//catch end
 
-finally{
-   notifySlack(currentBuild.result)
+finally {
+notifyBuild(currentBuild.result)
 }//finally end
-
 }// node end
 
 def notifySlack(String buildStatus = 'STARTED') {

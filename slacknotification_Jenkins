@@ -20,7 +20,7 @@ currentBuild.result = "FAILURE"
 throw e
 }//catch end
 
-finally {
+finally{
    notifySlack(currentBuild.result)
 }//finally end
 

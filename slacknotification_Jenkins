@@ -22,8 +22,7 @@ throw e
 
 finally {
 notifyBuild(currentBuild.result)
-}//finally end
-}// node end
+}
 
 def notifySlack(String buildStatus = 'STARTED') {
     // Build status of null means success.

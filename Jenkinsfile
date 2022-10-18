@@ -10,7 +10,7 @@ git branch: 'development', credentialsId: 'e820db54-3a90-4e00-b4a5-8fd92032dc16'
 
 //build stage
 stage ('build'){
-sh "${mavenhome}/bin/mvn packag1"
+sh "${mavenhome}/bin/mvn package"
 }
 
 //sonar report

@@ -1,28 +1,48 @@
-//Code Snippet for sending slack notifications.
+node {
+    try {
+	
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '10')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 
-def slackNotifications(String buildStatus = 'STARTED') {
-  // build status of null means successful
-  buildStatus =  buildStatus ?: 'SUCCESS'
-  //buildStatus = buildStatus ? "SUCCESS":"FAILURE"
+def mavenhome = tool name: 'maven3.8.6'
 
-  // Default values
-  def colorName = 'RED'
-  def colorCode = '#FF0000'
-  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  def summary = "${subject} (${env.BUILD_URL})"
+stage ('checkout code'){
+git branch: 'development', credentialsId: 'e820db54-3a90-4e00-b4a5-8fd92032dc16', url: 'https://github.com/vikasaroor/maven-web-application.git'
+}
 
-  // Override default values based on build status
-  if (buildStatus == 'STARTED') {
-    colorName = 'ORANGE'
-    colorCode = '#FFA500'
-  } else if (buildStatus == 'SUCCESS') {
-    colorName = 'GREEN'
-    colorCode = '#00FF00'
-  } else {
-    colorName = 'RED'
-    colorCode = '#FF0000'
-  }
+//build stage
+stage ('build'){
+sh "${mavenhome}/bin/mvn package"
+}
+}//try end
 
-  // Send notifications
-  slackSend (color: colorCode, message: summary, channel: "#walmart")
+catche(e){
+currentBuild.result = "FAILURE"
+throw e
+}//catch end
+
+finally {
+   notifySlack(currentBuild.result)
+}//finally end
+
+}// node end
+
+def notifySlack(String buildStatus = 'STARTED') {
+    // Build status of null means success.
+    buildStatus = buildStatus ?: 'SUCCESS'
+
+    def color
+
+    if (buildStatus == 'STARTED') {
+        color = '#D4DADF'
+    } else if (buildStatus == 'SUCCESS') {
+        color = '#BDFFC3'
+    } else if (buildStatus == 'UNSTABLE') {
+        color = '#FFFE89'
+    } else {
+        color = '#FF9FA1'
+    }
+
+    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}"
+
+    slackSend(color: color, message: msg)
 }

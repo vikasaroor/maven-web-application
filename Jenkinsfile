@@ -22,6 +22,7 @@ sh "${mavenhome}/bin/mvn sonar:sonar"
 stage ('nexus repo'){
 sh "${mavenhome}/bin/mvn deploy"
 }
+}
 catch (e) {
     currentBuild.result = "FAILED"
     throw e
@@ -29,7 +30,6 @@ catch (e) {
  finally {
     // Success or failure, always send notifications
     notifyBuild(currentBuild.result)
-  }
   }
   } //node end
   
@@ -58,3 +58,7 @@ catch (e) {
   // Send notifications
   slackSend (color: colorCode, message: summary)
 }
+  
+
+
+

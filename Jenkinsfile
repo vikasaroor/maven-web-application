@@ -1,5 +1,7 @@
 node {
 try {
+
+notifyBuild('STARTED')
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '10')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 
 def mavenhome = tool name: 'maven3.8.6'

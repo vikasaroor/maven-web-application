@@ -14,7 +14,7 @@ stage('sonarReport'){
 
 stage('deply to Tomcatserver'){
 sshagent(['23bb0379-7b0d-4f05-9e40-618b41ccd8a8']) {
-  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.204.98:/opt/apache-tomcat-9.0.68/webapps 
+  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.204.98:/opt/apache-tomcat-9.0.68/webapps"
 }
 
 

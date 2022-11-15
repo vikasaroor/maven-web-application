@@ -17,7 +17,7 @@ stage('sonarReport'){
 */
       stage("build & SonarQube analysis") {
           withSonarQubeEnv('SonarQube'){
-                 sh '${mavenHome}/bin/mvn clean package sonar:sonar'
+                 sh "${mavenHome}/bin/mvn clean sonar:sonar"
               }
       }
 

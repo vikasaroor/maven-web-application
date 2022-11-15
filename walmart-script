@@ -20,7 +20,7 @@ stage('sonarReport'){
                  sh "${mavenHome}/bin/mvn clean sonar:sonar"
               }
       }
-
+/*
       stage("Quality Gate"){
           timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
@@ -29,8 +29,13 @@ stage('sonarReport'){
               }
           }
       }
+*/
 
-stage('deply to Tomcatserver'){
+waitForQualityGate abortPipeline: false, credentialsId: '045ae5d0-c6d8-4588-bed0-a93c3d33cdef'
+
+
+
+stage('deploy to Tomcatserver'){
 sshagent(['23bb0379-7b0d-4f05-9e40-618b41ccd8a8']) {
   sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.204.98:/opt/apache-tomcat-9.0.68/webapps"
 }

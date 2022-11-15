@@ -8,13 +8,22 @@ git branch: 'development', credentialsId: '13c63f0b-223f-4565-a724-b7d41aed866c'
 stage('Build'){
  sh "${mavenHome}/bin/mvn clean package"
 }
+/*
 stage('sonarReport'){
  withSonarQubeEnv('SonarQube'){
  sh "${mavenHome}/bin/mvn sonar:sonar"
 }
 }
+*/
+      stage("build & SonarQube analysis") {
+          node {
+              withSonarQubeEnv('SonarQube') {
+                 sh '${mavenHome}/bin/clean package sonar:sonar'
+              }
+          }
+      }
 
- stage("Quality Gate"){
+      stage("Quality Gate"){
           timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {

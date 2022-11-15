@@ -16,11 +16,9 @@ stage('sonarReport'){
 }
 */
       stage("build & SonarQube analysis") {
-          node {
-              withSonarQubeEnv('SonarQube'){
+          withSonarQubeEnv('SonarQube'){
                  sh '${mavenHome}/bin/mvn clean package sonar:sonar'
               }
-          }
       }
 
       stage("Quality Gate"){

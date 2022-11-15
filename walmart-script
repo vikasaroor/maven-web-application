@@ -12,5 +12,6 @@ stage('sonarReport'){
  sh "${mavenHome}/bin/mvn sonar:sonar"
 }
 
+pwd()
 
 }//node

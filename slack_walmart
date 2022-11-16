@@ -61,8 +61,8 @@ def notifyBuild(String buildStatus = 'STARTED') {
   buildStatus =  buildStatus ?: 'SUCCESS'
 
   // Default values
-  def colorName = 'RED'
-  def colorCode = '#FF0000'
+  def colorName = 'PINK'
+  def colorCode = '#FFC0CB'
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
   def summary = "${subject} (${env.BUILD_URL})"
 

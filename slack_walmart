@@ -7,7 +7,7 @@ def mavenHome = tool name: 'Maven_3.8.6'
 git branch: 'development', credentialsId: '13c63f0b-223f-4565-a724-b7d41aed866c', url: 'https://github.com/vikasaroor/maven-web-application.git'
 }
 
-notifyBuild('Started')
+notifyBuild('STARTED')
 
 stage('Build'){
  sh "${mavenHome}/bin/mvn clean package"

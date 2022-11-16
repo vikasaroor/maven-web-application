@@ -1,6 +1,7 @@
 node{
 
 try{
+buildName 'qa-#${BUILD_NUMBER}'
 
 def mavenHome = tool name: 'Maven_3.8.6'
  stage('checkoutcode'){
@@ -8,8 +9,6 @@ git branch: 'development', credentialsId: '13c63f0b-223f-4565-a724-b7d41aed866c'
 }
 
 notifyBuild('STARTED')
-
-buildName 'qa-#${BUILD_NUMBER}'
 
 stage('Build'){
  sh "${mavenHome}/bin/mvn clean package"

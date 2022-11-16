@@ -1,0 +1,83 @@
+node{
+
+try{
+
+def mavenHome = tool name: 'Maven_3.8.6'
+ stage('checkoutcode'){
+git branch: 'development', credentialsId: '13c63f0b-223f-4565-a724-b7d41aed866c', url: 'https://github.com/vikasaroor/maven-web-application.git'
+}
+
+stage('Build'){
+ sh "${mavenHome}/bin/mvn clean package"
+}
+
+stage('sonarReport'){
+ sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+/*
+      stage("build & SonarQube analysis") {
+          withSonarQubeEnv('SonarQube'){
+                 sh "${mavenHome}/bin/mvn clean sonar:sonar"
+              }
+      }
+
+      stage("Quality Gate"){
+          timeout(time: 1, unit: 'HOURS') {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+      }
+
+
+stage('deploy to Tomcatserver'){
+sshagent(['23bb0379-7b0d-4f05-9e40-618b41ccd8a8']) {
+  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.204.98:/opt/apache-tomcat-9.0.68/webapps"
+}
+}
+
+*/
+
+} // try close
+
+
+  catch (e) {
+    // If there was an exception thrown, the build failed
+    currentBuild.result = "FAILED"
+    throw e
+  } finally {
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
+  }
+}
+
+
+}//node closing
+
+
+def notifyBuild(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESS'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    color = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL') {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
+}

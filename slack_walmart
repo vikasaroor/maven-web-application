@@ -50,8 +50,6 @@ sshagent(['23bb0379-7b0d-4f05-9e40-618b41ccd8a8']) {
     // Success or failure, always send notifications
     notifyBuild(currentBuild.result)
   }
-}
-
 
 }//node closing
 

@@ -20,7 +20,7 @@ stage('sonarReport'){
                  sh "${mavenHome}/bin/mvn clean sonar:sonar"
               }
       }
-/*
+
       stage("Quality Gate"){
           timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
@@ -29,10 +29,6 @@ stage('sonarReport'){
               }
           }
       }
-*/
-
-waitForQualityGate abortPipeline: false, credentialsId: '045ae5d0-c6d8-4588-bed0-a93c3d33cdef'
-
 
 
 stage('deploy to Tomcatserver'){

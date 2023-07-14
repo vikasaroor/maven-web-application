@@ -21,7 +21,7 @@ spec:
      spec:
        containers:
        - name: webcontainer
-         image: vikasaroor/maven-web-application:1
+         image: vikasaroor/maven-web-application:${BUILD_NUMBER}
          ports:
          - containerPort: 8081
        - name: nginx

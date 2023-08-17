@@ -98,13 +98,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://172.31.11.1:8081/repository/walmart-snapshot/</url>
+	      <url>http://13.234.213.188:8081/repository/mavVik-Release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://3.110.183.170:8081/repository/walmart-snapshot//</url>
+	      <url>http://13.234.213.188:8081/repository/mavVik_snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>

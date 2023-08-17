@@ -26,8 +26,16 @@
 		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 	</properties>
+         <repositories>
+            <repository>
+	      <id>nexusGroup</id>
+	      <name>Grouprepo</name>
+	      <url>http://13.234.213.188:8081/repository/mvnVksGroup/</url>
+	    </repository>
+	 </repositories>         
+
+	
 
 	<dependencies>
 		

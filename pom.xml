@@ -31,7 +31,7 @@
             <repository>
 	      <id>nexusGroup</id>
 	      <name>Grouprepo</name>
-	      <url>http://13.234.213.188:8081/repository/mvnVksGroup/</url>
+	      <url>http://13.234.213.188:8081/repository/mvnRemoteRepo/</url>
 	    </repository>
 	 </repositories>         
 
@@ -98,15 +98,7 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-<dependency>
-  <groupId>vksMaven</groupId>
-  <artifactId>log4j</artifactId>
-  <version>1.0.2</version>
-  <classifier>sources</classifier>
-</dependency>
 
-
-		
 	</dependencies>
 	
 	<distributionManagement>

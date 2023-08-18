@@ -112,7 +112,7 @@
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://13.234.213.188:8081/repository/mavVik_snapshot/</url>
+	      <url>http://13.234.17.134:8081/repository/mavVik_snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>

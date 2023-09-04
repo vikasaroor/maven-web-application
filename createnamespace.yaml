@@ -1,0 +1,7 @@
+kind: namespace 
+apiVersion: v1
+metadata:  
+  labels: 
+    team:
+    project: flipkart
+  name: testNew
